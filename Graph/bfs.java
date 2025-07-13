@@ -1,5 +1,5 @@
 import java.util.*;
-public class dfs{
+public class bfs{
     static class Edge{
         int src,dest,weight;
         public Edge(int s,int d,int w){
@@ -31,22 +31,27 @@ public class dfs{
 
 
     }
-    public static void dfs(ArrayList<Edge> graph[] ,int curr,boolean visited[]){
-       System.out.print(curr +" ");
-       visited[curr] = true;
-       for(int i=0;i<graph[curr].size();i++){
-        Edge e = graph[curr].get(i);
-        if(!visited[e.dest]){
-            dfs(graph,e.dest,visited);
+    public static void bfstravarsal(ArrayList<Edge> graph[] ,int V,int start){
+        boolean visited[] = new boolean[V];
+        Queue<Integer> q = new LinkedList<>();
+        q.add(start);
+        visited[start] = true;
+        while(!q.isEmpty()){
+            int curr = q.poll();
+            System.out.print(curr + " ");
+            for(Edge e : graph[curr]){
+                if(!visited[e.dest]){
+                    q.add(e.dest);
+                    visited[e.dest] = true;
+                                }
+            }
         }
-       }
-        
     }
     public static void main(String[] args) {
         int V = 7;
         ArrayList<Edge>[] graph = new ArrayList[V];
         createGraph(graph);
-        dfs(graph,0,new boolean[V]);
+        bfstravarsal(graph,V,0);
 
     }
 }
